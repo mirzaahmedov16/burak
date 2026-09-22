@@ -10,7 +10,7 @@ mongoose
     console.log(" MongoDB connection successful");
     const port = process.env.PORT || 3003;
     app.listen(port, function ()  {
-      console.log("DONE");
+      console.log(`Server is running on port: ${port}`);
     });
   })
   .catch((error) => {
