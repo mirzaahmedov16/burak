@@ -1,5 +1,7 @@
+
 import { Request, Response } from "express";
 import { T } from "../libs/types/common";
+import MemberService from "../models/member.service";
 
 const restaurantController: T = {};
 
@@ -32,6 +34,5 @@ restaurantController.getSignup = (req: Request, res: Response) => {
     }
 };
 
+
 export default restaurantController;
-import { Request, Response } from "express";
-import { T } from "../libs/types/common";
