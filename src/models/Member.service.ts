@@ -1,7 +1,34 @@
+import MemberModel from "../schema/Member.model"; 
+import {Member, MemberInput }from "../libs/types/member";
+import Errors, { HttpCode, Message  } from "../libs/Errors";
+import { MemberType } from "../libs/enums/member.enum";
+
+
 class MemberService {
+    private readonly memberModel;
 
-    constructor() {}
+    constructor() {
+        this.memberModel = MemberModel;
+    }
 
+    public async processSignup(input: MemberInput): Promise<Member> {
+        const exist = await this. memberModel
+      .findOne({ memberPhone: input.memberPhone })
+        .exec();
+        console.log("exist:", exist);
+        if( exist) {
+            throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+        }
+        
+        try {
+            const result = await this.memberModel.create(input);
+            result.memberPassword = "";
+            return result;
+        } catch (error) {
+            throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+        }
+    }
 }
 
-export default new MemberService();
+export default MemberService;
+

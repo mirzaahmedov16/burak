@@ -11,7 +11,7 @@ export enum HttpCode {
     
 }
 
-export enum ErrorMessage {
+export enum Message {
    SOMETHING_WENT_WRONG = "Something went wrong",
    NO_DATA_FOUND = "No data is found!",
    CREATE_FAILED = "Creation failed!",
@@ -20,9 +20,9 @@ export enum ErrorMessage {
 
 class Errors extends Error {
 public code: HttpCode;
-public message: ErrorMessage;
+public message: Message;
 
-constructor(statusCode: HttpCode, statusMessage: ErrorMessage) {
+constructor(statusCode: HttpCode, statusMessage: Message) {
 super();
 this.code = statusCode;
 this.message = statusMessage;
