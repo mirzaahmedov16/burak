@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import restaurantController from "./controller/member.controller";
+import restaurantController from "./controller/restaurant.controller";
 
 router.get("/", restaurantController.goHome);
 router.get("/login", restaurantController.getLogin);
