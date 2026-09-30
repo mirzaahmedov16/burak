@@ -76,6 +76,7 @@ GraphQL Api
 
 // P TASK
 
+
 function objectToArray(obj: { [key: string]: any }): any[] {
     const result: any[] = [];
 
@@ -89,5 +90,5 @@ function objectToArray(obj: { [key: string]: any }): any[] {
 }
 
 console.log(
-    objectToArray({ a: 1, b: 2, c: 3, }) // [['a', 1], ['b', 2], ['c', 3], ['d', 4]]
+    objectToArray({ a: 1, b: 2, c: 3, }) 
 );
