@@ -56,19 +56,38 @@ GraphQL Api
 
 // O TASK
 
-function calculateSumOfNumbers(arr: any[]): number {
-    let sum = 0;
+// function calculateSumOfNumbers(arr: any[]): number {
+//     let sum = 0;
 
-    for (const value of arr) {
-        if (typeof value === "number") {
-            sum += value;
+//     for (const value of arr) {
+//         if (typeof value === "number") {
+//             sum += value;
+//         }
+//     }
+
+//     return sum;
+// }
+
+// console.log(
+//     calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]) //45 
+// );
+
+
+
+// P TASK
+
+function objectToArray(obj: { [key: string]: any }): any[] {
+    const result: any[] = [];
+
+    for (const key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            result.push([key, obj[key]]);
         }
     }
 
-    return sum;
+    return result;
 }
 
 console.log(
-    calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]) //45 
+    objectToArray({ a: 1, b: 2, c: 3, }) // [['a', 1], ['b', 2], ['c', 3], ['d', 4]]
 );
-
