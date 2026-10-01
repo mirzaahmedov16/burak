@@ -13,8 +13,10 @@ GraphQL Api
 ...
 */
 
-
-
+/*
+Traditional FD =>   SSR => EJS
+Moodern FD     =>   SPA => React 
+*/
 
 
 
