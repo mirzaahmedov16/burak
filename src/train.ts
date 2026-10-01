@@ -79,18 +79,34 @@ Moodern FD     =>   SPA => React
 // P TASK
 
 
-function objectToArray(obj: { [key: string]: any }): any[] {
-    const result: any[] = [];
+// function objectToArray(obj: { [key: string]: any }): any[] {
+//     const result: any[] = [];
 
-    for (const key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            result.push([key, obj[key]]);
-        }
-    }
+//     for (const key in obj) {
+//         if (obj.hasOwnProperty(key)) {
+//             result.push([key, obj[key]]);
+//         }
+//     }
 
-    return result;
+//     return result;
+// }
+
+// console.log(
+//     objectToArray({ a: 1, b: 2, c: 3, }) 
+// );
+
+// Q TASK
+// Q-TASK
+
+// Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. 
+// Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin. 
+// MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; 
+// hasProperty({name: "BMW", model: "M3"}, "year") return false.
+
+function hasProperty(obj: { [key: string]: any }, prop: string): boolean {
+    return obj.hasOwnProperty(prop);
 }
 
-console.log(
-    objectToArray({ a: 1, b: 2, c: 3, }) 
-);
+console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
+console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
+console.log(hasProperty({ name: "BMW", model: "M3" }, "name")); // true
