@@ -32,7 +32,7 @@ class MemberService {
     const member = await this.memberModel
         .findOne(
             { memberNick: input.memberNick },
-            { memberNick: 1, memberPassword: 1 }
+            { memberNick: 1, memberPassword: 1 } // null
         )
         .exec();
 
@@ -43,7 +43,7 @@ class MemberService {
         );
     }
 
-    const isMatch = await bcrypt.compare(
+    const isMatch = await bcrypt.compare(  // true,falsa
         input.memberPassword,
         member.memberPassword
     );
