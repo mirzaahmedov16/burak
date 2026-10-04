@@ -103,10 +103,30 @@ Moodern FD     =>   SPA => React
 // MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; 
 // hasProperty({name: "BMW", model: "M3"}, "year") return false.
 
-function hasProperty(obj: { [key: string]: any }, prop: string): boolean {
-    return obj.hasOwnProperty(prop);
+// function hasProperty(obj: { [key: string]: any }, prop: string): boolean {
+//     return obj.hasOwnProperty(prop);
+// }
+
+// console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
+// console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
+// console.log(hasProperty({ name: "BMW", model: "M3" }, "name")); // true
+
+
+// R-TASK
+
+// Shunday function yozing, u string parametrga ega bolsin. 
+// String "1+2" holatda pass qilinganda string ichidagi 
+// sonlar yigindisini number holatda qaytarsin. 
+// MASALAN: calculate("1+3") return 4.
+
+// R TASK
+
+function calculate(expression: string): number {
+    const numbers = expression.split("+").map(Number);
+    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+    return sum;
 }
 
-console.log(hasProperty({ name: "BMW", model: "M3" }, "model")); // true
-console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
-console.log(hasProperty({ name: "BMW", model: "M3" }, "name")); // true
+console.log(calculate("1+3")); // 4
+console.log(calculate("10+20+30")); // 60
+console.log(calculate("5+15")); // 20
