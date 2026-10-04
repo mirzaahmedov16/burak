@@ -1,19 +1,21 @@
 import express from "express";
-const router = express.Router();
+const routerAdmin = express.Router();
 import restaurantController from "./controller/restaurant.controller";
 
 /** restaurant routes **/
-router.get("/", restaurantController.goHome);
+routerAdmin.get("/", restaurantController.goHome);
 
-router
+routerAdmin     
 .get("/login", restaurantController.getLogin)
 .post("/login", restaurantController.processLogin);
 
-router
+routerAdmin  
 .get("/signup", restaurantController.getSignup)
 .post("/signup", restaurantController.processSignup);
 
+routerAdmin
+.get("/check-me", restaurantController.checkAuthSession);
 /** product routes **/
 /** user routes **/
 
-export default router;
+export default routerAdmin;
