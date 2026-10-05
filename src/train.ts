@@ -121,12 +121,30 @@ Moodern FD     =>   SPA => React
 
 // R TASK
 
-function calculate(expression: string): number {
-    const numbers = expression.split("+").map(Number);
-    const sum = numbers.reduce((acc, curr) => acc + curr, 0);
-    return sum;
+// function calculate(expression: string): number {
+//     const numbers = expression.split("+").map(Number);
+//     const sum = numbers.reduce((acc, curr) => acc + curr, 0);
+//     return sum;
+// }
+
+// console.log(calculate("1+3")); // 4
+// console.log(calculate("10+20+30")); // 60
+// console.log(calculate("5+15")); // 20
+
+
+// S-TASK
+
+// Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin 
+// va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin. 
+// MASALAN: missingNumber([3, 0, 1]) return 2.
+
+function missingNumber(arr: number[]): number {
+    const n = arr.length;
+    const expectedSum = (n * (n + 1)) / 2;
+    const actualSum = arr.reduce((acc, curr) => acc + curr, 0);
+    return expectedSum - actualSum;
 }
 
-console.log(calculate("1+3")); // 4
-console.log(calculate("10+20+30")); // 60
-console.log(calculate("5+15")); // 20
+console.log(missingNumber([4, 0, 1])); // 2
+console.log(missingNumber([0, 1])); // 2
+console.log(missingNumber([9,6,4,2,3,5,7,0,1,573])); // 8
