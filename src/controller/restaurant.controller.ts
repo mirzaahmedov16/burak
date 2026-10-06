@@ -88,6 +88,7 @@ restaurantController.processLogin = async (
     // TODO: SESSIONS AUTHENTICATION
 
     req.session.member = result;
+
     req.session.save(function () {
       res.send(result);
     });
@@ -142,6 +143,12 @@ restaurantController.verifyRestaurant = (
   res: Response,
   next: NextFunction,
 ) => {
+  console.log("VERIFY RESTAURANT");
+  console.log("SESSION:", req.session);
+  console.log("MEMBER:", req.session?.member);
+  console.log("TYPE:", req.session?.member?.memberType);
+
+  // qolgan kod...
   if (req.session?.member?.memberType === MemberType.RESTAURANT) {
     req.member = req.session.member;
     next(); // continue to the next middleware or route handler
