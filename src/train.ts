@@ -18,14 +18,6 @@ Traditional FD =>   SSR => EJS
 Moodern FD     =>   SPA => React 
 */
 
-
-
-
-
-
-
-
-
 // M TASK
 
 // function getSquareNumbers(arr: number[]){
@@ -35,17 +27,16 @@ Moodern FD     =>   SPA => React
 //         let square = number * number;
 //        result.push({ number, square });
 
-       
 //     }
 //     return result;
 // }
 
-// console.log(getSquareNumbers([1, 2, 3, 4, 5])); 
+// console.log(getSquareNumbers([1, 2, 3, 4, 5]));
 
 //N-TASK
 
-// Shunday function yozing, u string qabul qilsin va string palindrom yani togri oqilganda ham, 
-// orqasidan oqilganda ham bir hil oqiladigan soz ekanligini aniqlab boolean qiymat qaytarsin. 
+// Shunday function yozing, u string qabul qilsin va string palindrom yani togri oqilganda ham,
+// orqasidan oqilganda ham bir hil oqiladigan soz ekanligini aniqlab boolean qiymat qaytarsin.
 // MASALAN: palindromCheck("dad") return true; palindromCheck("son") return false.
 
 // function palindromCheck(str: string): boolean {
@@ -54,7 +45,7 @@ Moodern FD     =>   SPA => React
 // }
 
 // console.log(palindromCheck("dad")); // true
-// console.log(palindromCheck("son")); // false    
+// console.log(palindromCheck("son")); // false
 
 // O TASK
 
@@ -71,13 +62,10 @@ Moodern FD     =>   SPA => React
 // }
 
 // console.log(
-//     calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]) //45 
+//     calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]) //45
 // );
 
-
-
 // P TASK
-
 
 // function objectToArray(obj: { [key: string]: any }): any[] {
 //     const result: any[] = [];
@@ -92,15 +80,15 @@ Moodern FD     =>   SPA => React
 // }
 
 // console.log(
-//     objectToArray({ a: 1, b: 2, c: 3, }) 
+//     objectToArray({ a: 1, b: 2, c: 3, })
 // );
 
 // Q TASK
 // Q-TASK
 
-// Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string. 
-// Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin. 
-// MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true; 
+// Shunday function yozing, u 2 ta parametrgga ega bolib birinchisi object, ikkinchisi string.
+// Agar string parametr objectni propertysi bolsa true bolmasa false qaytarsin.
+// MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") return true;
 // hasProperty({name: "BMW", model: "M3"}, "year") return false.
 
 // function hasProperty(obj: { [key: string]: any }, prop: string): boolean {
@@ -111,12 +99,11 @@ Moodern FD     =>   SPA => React
 // console.log(hasProperty({ name: "BMW", model: "M3" }, "year")); // false
 // console.log(hasProperty({ name: "BMW", model: "M3" }, "name")); // true
 
-
 // R-TASK
 
-// Shunday function yozing, u string parametrga ega bolsin. 
-// String "1+2" holatda pass qilinganda string ichidagi 
-// sonlar yigindisini number holatda qaytarsin. 
+// Shunday function yozing, u string parametrga ega bolsin.
+// String "1+2" holatda pass qilinganda string ichidagi
+// sonlar yigindisini number holatda qaytarsin.
 // MASALAN: calculate("1+3") return 4.
 
 // R TASK
@@ -131,20 +118,20 @@ Moodern FD     =>   SPA => React
 // console.log(calculate("10+20+30")); // 60
 // console.log(calculate("5+15")); // 20
 
-
 // S-TASK
 
-// Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin 
-// va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin. 
+// Shunday function yozing, u numberlardan tashkil topgan array qabul qilsin
+// va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin.
 // MASALAN: missingNumber([3, 0, 1]) return 2.
 
 function missingNumber(arr: number[]): number {
-    const n = arr.length;
-    const expectedSum = (n * (n + 1)) / 2;
-    const actualSum = arr.reduce((acc, curr) => acc + curr, 0);
-    return expectedSum - actualSum;
+  const n = arr.length;
+  const expectedSum = (n * (n + 1)) / 2;
+
+  const actualSum = arr.reduce((sum, num) => sum + num, 0);
+
+  return expectedSum - actualSum;
 }
 
-console.log(missingNumber([4, 0, 1])); // 2
-console.log(missingNumber([0, 1])); // 2
-console.log(missingNumber([9,6,4,2,3,5,7,0,1,573])); // 8
+console.log(missingNumber([3, 0, 1])); // 2
+console.log(missingNumber([0, 1, 2, 3, 5])); // 4
