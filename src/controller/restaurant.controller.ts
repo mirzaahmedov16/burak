@@ -143,11 +143,6 @@ restaurantController.verifyRestaurant = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log("VERIFY RESTAURANT");
-  console.log("SESSION:", req.session);
-  console.log("MEMBER:", req.session?.member);
-  console.log("TYPE:", req.session?.member?.memberType);
-
   // qolgan kod...
   if (req.session?.member?.memberType === MemberType.RESTAURANT) {
     req.member = req.session.member;
