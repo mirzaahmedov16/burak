@@ -4,7 +4,7 @@ import MemberService from "../models/Member.service";
 import { LoginInput, MemberInput, AdminRequest } from "../libs/types/member";
 import { MemberType } from "../libs/enums/member.enum";
 import { Member } from "../libs/types/member";
-import Errors, { Message } from "../libs/Errors";
+import Errors, { HttpCode, Message } from "../libs/Errors";
 
 const memberService = new MemberService();
 
@@ -47,13 +47,13 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log("processSignup");
-
-    console.log("BODY:", req.body);
-
+    const file = req.file;
+    if (!file) {
+      throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+    }
+    console.log("req.body:", req.body);
     const newMember: MemberInput = req.body;
-
-    console.log("INPUT:", newMember);
-    console.log("PASSWORD:", newMember.memberPassword);
+    newMember.memberImage = file?.path; // Assuming the file path is stored in req.file.path
 
     newMember.memberType = MemberType.RESTAURANT;
 
@@ -66,7 +66,7 @@ restaurantController.processSignup = async (
       res.send(result);
     });
   } catch (err) {
-    console.log("Error, processLogin:", err);
+    console.log("Error, processSignup:", err);
 
     const message =
       err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG;

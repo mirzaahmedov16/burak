@@ -29,13 +29,13 @@ routerAdmin.get("/check-me", restaurantController.checkAuthSession);
 
 routerAdmin.get(
   "/products/all",
-  restaurantController.verifyRestaurant,
+  restaurantController.verifyRestaurant, // authoratation
   productController.getAllProducts,
 );
 routerAdmin.post(
   "/products/create",
   restaurantController.verifyRestaurant,
-  makeUploader("products").array("productImages", 5),
+  makeUploader("products").array("productImages", 5), // uploader middleware, function
   productController.createNewProduct,
 );
 
