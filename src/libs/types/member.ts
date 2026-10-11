@@ -40,3 +40,14 @@ export interface AdminRequest extends Request {
   file?: Express.Multer.File; // Optional property for the uploaded file
   files?: Express.Multer.File[];
 }
+
+export interface MemberUpdateInput {
+  _id: ObjectId;
+  memberStatus?: MemberStatus;
+  memberNick?: string;
+  memberPhone?: string;
+  memberPassword?: string;
+  memberAddress?: string;
+  memberDesc?: string;
+  memberImage?: string;
+}
