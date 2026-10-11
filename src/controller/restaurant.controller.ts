@@ -63,7 +63,7 @@ restaurantController.processSignup = async (
 
     req.session.member = result;
     req.session.save(function () {
-      res.send(result);
+      res.redirect("/admin/products/all");
     });
   } catch (err) {
     console.log("Error, processSignup:", err);
@@ -90,7 +90,7 @@ restaurantController.processLogin = async (
     req.session.member = result;
 
     req.session.save(function () {
-      res.send(result);
+      res.redirect("/admin/products/all");
     });
   } catch (err) {
     console.log("Error, processLogin:", err);

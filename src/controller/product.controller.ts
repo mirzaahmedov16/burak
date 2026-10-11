@@ -1,13 +1,21 @@
 import { T } from "../libs/types/common";
-import Errors from "../libs/Errors";
+import Errors, { HttpCode, Message } from "../libs/Errors";
 import { Request, Response } from "express";
 import ProductService from "../models/product.service";
 import { AdminRequest } from "../libs/types/member";
+import { ProductInput } from "../libs/types/product";
 
 const productService = new ProductService();
 
 const productController: T = {};
 
+/**
+SPA
+*/
+
+/**
+SSR
+ */
 productController.getAllProducts = async (req: Request, res: Response) => {
   try {
     console.log("getAllProducts");
@@ -19,18 +27,40 @@ productController.getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-productController.createNewProduct = async (req: Request, res: Response) => {
+productController.createNewProduct = async (
+  req: AdminRequest,
+  res: Response,
+) => {
   try {
     console.log("createNewProduct");
-    res.send("DONE!");
+    console.log("req.files:", req.files);
+    if (!req.files?.length)
+      throw new Errors(HttpCode.INTERNAL_SERVER_ERROR, Message.CREATE_FAILED);
+
+    const data: ProductInput = req.body;
+    data.productImages = req.files?.map((ele) => {
+      return ele.path;
+    });
+
+    await productService.createNewProduct(data);
+    console.log("req.body:", req.body);
+    res.send(
+      `<script>alert('Successful creation'); window.location.replace('/admin/products/all');</script>`,
+    );
   } catch (error) {
     console.error("Error in createNewProduct:", error);
-    if (error instanceof Errors) res.status(error.code).json(error);
-    else res.status(Errors.standard.code).json(Errors.standard);
+    const message =
+      error instanceof Errors ? error.message : Message.SOMETHING_WENT_WRONG;
+
+    res.send(
+      `<script>alert("${message}"); window.location.replace('/admin/products/all')</script>`,
+    );
   }
 };
-
-productController.updateChosenProduct = async (req: Request, res: Response) => {
+productController.updateChosenProduct = async (
+  req: AdminRequest,
+  res: Response,
+) => {
   try {
     console.log("updateChosenProduct");
   } catch (error) {
