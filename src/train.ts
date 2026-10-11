@@ -124,14 +124,24 @@ Moodern FD     =>   SPA => React
 // va osha numberlar orasidagi tushib qolgan sonni topib uni return qilsin.
 // MASALAN: missingNumber([3, 0, 1]) return 2.
 
-function missingNumber(arr: number[]): number {
-  const n = arr.length;
-  const expectedSum = (n * (n + 1)) / 2;
+// function missingNumber(arr: number[]): number {
+//   const n = arr.length;
+//   const expectedSum = (n * (n + 1)) / 2;
 
-  const actualSum = arr.reduce((sum, num) => sum + num, 0);
+//   const actualSum = arr.reduce((sum, num) => sum + num, 0);
 
-  return expectedSum - actualSum;
+//   return expectedSum - actualSum;
+// }
+
+// console.log(missingNumber([3, 0, 1])); // 2
+// console.log(missingNumber([0, 1, 2, 3, 5])); // 4
+
+// T-TASK
+
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+  let result = arr1.concat(arr2);
+  result.sort((a: number, b: number) => a - b);
+  return result;
 }
 
-console.log(missingNumber([3, 0, 1])); // 2
-console.log(missingNumber([0, 1, 2, 3, 5])); // 4
+console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]));
