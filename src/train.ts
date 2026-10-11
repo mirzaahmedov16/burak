@@ -138,10 +138,25 @@ Moodern FD     =>   SPA => React
 
 // T-TASK
 
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-  let result = arr1.concat(arr2);
-  result.sort((a: number, b: number) => a - b);
-  return result;
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+//   let result = arr1.concat(arr2);
+//   result.sort((a: number, b: number) => a - b);
+//   return result;
+// }
+
+// console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]));
+
+// U-TASK
+
+function sumOdds(num: number): number {
+  let count = 0;
+
+  for (let i = 1; i <= num; i += 2) {
+    count++;
+  }
+
+  return count;
 }
 
-console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]));
+console.log(sumOdds(9)); // 5
+console.log(sumOdds(11)); // 6
