@@ -43,7 +43,7 @@ productController.createNewProduct = async (
     });
 
     await productService.createNewProduct(data);
-    console.log("req.body:", req.body);
+
     res.send(
       `<script>alert('Successful creation'); window.location.replace('/admin/products/all');</script>`,
     );
@@ -63,6 +63,13 @@ productController.updateChosenProduct = async (
 ) => {
   try {
     console.log("updateChosenProduct");
+    const id = req.params.id;
+    const result = await productService.updateChosenProduct(
+      Array.isArray(id) ? id[0] : id,
+      req.body,
+    );
+
+    res.status(HttpCode.OK).json({ data: result });
   } catch (error) {
     console.error("Error in updateChosenProduct:", error);
     if (error instanceof Errors) res.status(error.code).json(error);
