@@ -148,15 +148,33 @@ Moodern FD     =>   SPA => React
 
 // U-TASK
 
-function sumOdds(num: number): number {
-  let count = 0;
+// function sumOdds(num: number): number {
+//   let count = 0;
 
-  for (let i = 1; i <= num; i += 2) {
-    count++;
+//   for (let i = 1; i <= num; i += 2) {
+//     count++;
+//   }
+
+//   return count;
+// }
+
+// console.log(sumOdds(9)); // 5
+// console.log(sumOdds(11)); // 6
+
+// MITASK-V
+
+function countChars(str: string) {
+  let obj: Record<string, number> = {};
+  for (const char of str) {
+    if (char in obj) {
+      obj[char] += 1;
+    } else {
+      obj[char] = 1;
+    }
   }
-
-  return count;
+  return obj;
 }
 
-console.log(sumOdds(9)); // 5
-console.log(sumOdds(11)); // 6
+// Testing
+console.log(countChars("try")); // { t: 1, r: 1, y: 1 }
+console.log(countChars("successfully")); // { s: 3, u: 2, c: 2, e: 1, f: 1, l: 2, y: 1 }
