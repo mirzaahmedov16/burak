@@ -186,13 +186,50 @@ Moodern FD     =>   SPA => React
 // MASALAN: chunkArray([1,2,3,4,5,6,7,8,9,10], 3) return [[1,2,3], [4,5,6], [7,8,9], [10]].
 
 // MITASK-W
-function chunkArray(arr: number[], size: number): number[][] {
-  const result: number[][] = [];
-  for (let i = 0; i < arr.length; i += size) {
-    result.push(arr.slice(i, i + size));
+// function chunkArray(arr: number[], size: number): number[][] {
+//   const result: number[][] = [];
+//   for (let i = 0; i < arr.length; i += size) {
+//     result.push(arr.slice(i, i + size));
+//   }
+//   return result;
+// }
+
+// console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2));
+
+//X - TASK;
+
+// Shunday function yozing, uni object va string parapetrlari bolsin.
+// Function string parametri object ichida necha marotaba takrorlanganligini qaytarsin (
+//   nested object bolsa ham sanasin). MASALAN:
+//   countOccurrences({model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}, 'model') return 2.
+
+// TASK-X
+
+function countOccurrences(obj: any, prop: string): number {
+  let count = 0;
+
+  for (const key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (key === prop) {
+        count++;
+      } else if (typeof obj[key] === "object") {
+        count += countOccurrences(obj[key], prop);
+      }
+    }
   }
-  return result;
+
+  return count;
 }
 
-// Testing
-console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2));
+console.log(
+  countOccurrences(
+    { model: "Bugatti", steer: { model: "HANKOOK", size: 30 } },
+    "model",
+  ),
+); // 2
+console.log(
+  countOccurrences(
+    { model: { model: "Bugatti", steer: { model: "HANKOOK", size: 30 } } },
+    "model",
+  ),
+); // 1
