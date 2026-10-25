@@ -205,31 +205,55 @@ Moodern FD     =>   SPA => React
 
 // TASK-X
 
-function countOccurrences(obj: any, prop: string): number {
-  let count = 0;
+// function countOccurrences(obj: any, prop: string): number {
+//   let count = 0;
 
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      if (key === prop) {
-        count++;
-      } else if (typeof obj[key] === "object") {
-        count += countOccurrences(obj[key], prop);
+//   for (const key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       if (key === prop) {
+//         count++;
+//       } else if (typeof obj[key] === "object") {
+//         count += countOccurrences(obj[key], prop);
+//       }
+//     }
+//   }
+
+//   return count;
+// }
+
+// console.log(
+//   countOccurrences(
+//     { model: "Bugatti", steer: { model: "HANKOOK", size: 30 } },
+//     "model",
+//   ),
+// ); // 2
+// console.log(
+//   countOccurrences(
+//     { model: { model: "Bugatti", steer: { model: "HANKOOK", size: 30 } } },
+//     "model",
+//   ),
+// ); // 1
+
+// Y-TASK
+
+// Shunday function yozing, uni 2 ta array parapetri bolsin.
+// Function ikkala arrayda ham ishtirok etgan qiymatlarni bir arrayda qaytarsin.
+// MASALAN: findIntersection([1,2,3], [3,2,0]) return [2,3].
+
+// Y-TASK
+function findIntersection(arr1: number[], arr2: number[]): number[] {
+  let result: number[] = [];
+
+  for (let i = 0; i < arr1.length; i++) {
+    for (let j = 0; j < arr2.length; j++) {
+      if (arr1[i] === arr2[j]) {
+        result.push(arr1[i]);
       }
     }
   }
 
-  return count;
+  return result;
 }
 
-console.log(
-  countOccurrences(
-    { model: "Bugatti", steer: { model: "HANKOOK", size: 30 } },
-    "model",
-  ),
-); // 2
-console.log(
-  countOccurrences(
-    { model: { model: "Bugatti", steer: { model: "HANKOOK", size: 30 } } },
-    "model",
-  ),
-); // 1
+console.log(findIntersection([1, 2, 3], [3, 2, 0])); // [2,3]
+console.log(findIntersection([1, 2, 3, 4, 5], [3, 2, 0, 1, 5])); // [2,3,5]
