@@ -67,6 +67,22 @@ memberController.logout = (req: ExtendedRequest, res: Response) => {
   }
 };
 
+memberController.getMemberDetail = async (
+  req: ExtendedRequest,
+  res: Response,
+) => {
+  try {
+    console.log("getMemberDetail");
+    const result = await memberService.getMemberDetail(req.member);
+
+    res.status(HttpCode.OK).json(result);
+  } catch (err) {
+    console.log("Error, getMemberDetail:", err);
+    if (err instanceof Errors) return res.status(err.code).json(err);
+    else return res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
 memberController.verifyAuth = async (
   req: ExtendedRequest,
   res: Response,
@@ -75,11 +91,8 @@ memberController.verifyAuth = async (
   try {
     const token = req.cookies["accessToken"];
     if (token) {
-      req.member = await authService.checkAuth(token);
-    }
-
-    if (!req.member) {
-      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+      if (!req.member)
+        throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
     }
 
     return next(); // <-- Faqat keyingi qadamga o'tkaziladi, res.json yozilmaydi!
