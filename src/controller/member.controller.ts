@@ -4,8 +4,9 @@ import { Member, MemberInput } from "../libs/types/member";
 import MemberService from "../models/Member.service";
 import { MemberType } from "../libs/enums/member.enum";
 import { LoginInput } from "../libs/types/member";
-import Errors from "../libs/Errors";
+import Errors, { HttpCode } from "../libs/Errors";
 import AuthService from "../models/Auth.service";
+import { AUTH_TIMER } from "../libs/config";
 
 const memberService = new MemberService();
 const authService = new AuthService();
@@ -19,9 +20,13 @@ memberController.signup = async (req: Request, res: Response) => {
     const input: MemberInput = req.body,
       result = await memberService.signup(input),
       token = await authService.createToken(result);
-    console.log(token);
 
-    res.json({ member: result });
+    res.cookie("accessToken", token, {
+      maxAge: AUTH_TIMER * 3600 * 1000,
+      httpOnly: false,
+    });
+
+    res.status(HttpCode.CREATED).json({ member: result, accessToken: token });
   } catch (error) {
     console.error("Error in signup:", error);
     if (error instanceof Errors) res.status(error.code).json(error);
@@ -36,10 +41,13 @@ memberController.login = async (req: Request, res: Response) => {
     const input: LoginInput = req.body,
       result = await memberService.login(input),
       token = await authService.createToken(result);
-    console.log("token=>", token);
-    // TODO: TOKENS AUTHENTICATION
 
-    res.json({ member: result });
+    res.cookie("accessToken", token, {
+      maxAge: AUTH_TIMER * 3600 * 1000,
+      httpOnly: false,
+    });
+
+    res.status(HttpCode.OK).json({ member: result, accessToken: token });
   } catch (error) {
     console.error("Error in login:", error);
     if (error instanceof Errors) res.status(error.code).json(error);
