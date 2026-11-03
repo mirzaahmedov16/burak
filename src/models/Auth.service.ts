@@ -10,7 +10,7 @@ class AuthService {
     this.secretToken = process.env.SECRET_TOKEN as string;
   }
 
-  public async createToken(payload: Member) {
+  public async createToken(payload: Member): Promise<String> {
     return new Promise((resolve, reject) => {
       const duration = `${AUTH_TIMER}h`;
       jwt.sign(
@@ -31,12 +31,14 @@ class AuthService {
   }
 
   public async checkAuth(token: string): Promise<Member> {
-    const result: Member = (await jwt.verify(
-      token,
-      this.secretToken,
-    )) as Member;
-    console.log(`--- [AUTH] memberNick: ${result.memberNick} ---`);
-    return result;
+    try {
+      return (await jwt.verify(
+        token,
+        process.env.SECRET_TOKEN as string,
+      )) as Member;
+    } catch (err) {
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+    }
   }
 }
 

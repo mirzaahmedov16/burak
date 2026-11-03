@@ -1,6 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { T } from "../libs/types/common";
-import { ExtendedRequest, Member, MemberInput } from "../libs/types/member";
+import {
+  ExtendedRequest,
+  Member,
+  MemberInput,
+  MemberUpdateInput,
+} from "../libs/types/member";
 import MemberService from "../models/Member.service";
 import { MemberType } from "../libs/enums/member.enum";
 import { LoginInput } from "../libs/types/member";
@@ -57,13 +62,12 @@ memberController.login = async (req: Request, res: Response) => {
 
 memberController.logout = (req: ExtendedRequest, res: Response) => {
   try {
-    console.log("logout");
-    res.cookie("accessToken", null, { maxAge: 0, httpOnly: true });
-    return res.status(HttpCode.OK).json({ logout: true });
-  } catch (err) {
-    console.log("Error, logout:", err);
-    if (err instanceof Errors) return res.status(err.code).json(err);
-    else return res.status(Errors.standard.code).json(Errors.standard);
+    res.clearCookie("accessToken");
+    res.status(HttpCode.OK).json({ logout: true });
+  } catch (error) {
+    console.error("Error in logout:", error);
+    if (error instanceof Errors) res.status(error.code).json(error);
+    else res.status(Errors.standard.code).json(Errors.standard);
   }
 };
 
@@ -76,8 +80,24 @@ memberController.getMemberDetail = async (
     const result = await memberService.getMemberDetail(req.member);
 
     res.status(HttpCode.OK).json(result);
+  } catch (error) {
+    console.error("Error in getMemberDetail:", error);
+    if (error instanceof Errors) res.status(error.code).json(error);
+    else res.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
+memberController.updateMember = async (req: ExtendedRequest, res: Response) => {
+  try {
+    console.log("updateMember");
+    const Input: MemberUpdateInput = req.body;
+    if (req.file) Input.memberImage = req.file.path.replace(/\\/, "/");
+
+    const result = await memberService.updateMember(req.member, Input);
+
+    res.status(HttpCode.OK).json(result);
   } catch (err) {
-    console.log("Error, getMemberDetail:", err);
+    console.log("Error, updateMember:", err);
     if (err instanceof Errors) return res.status(err.code).json(err);
     else return res.status(Errors.standard.code).json(Errors.standard);
   }
@@ -89,22 +109,25 @@ memberController.verifyAuth = async (
   next: NextFunction,
 ) => {
   try {
-    const token = req.cookies["accessToken"];
-    if (token) {
-      if (!req.member)
-        throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
-    }
+    const token =
+      req.cookies?.["accessToken"] || req.headers.authorization?.split(" ")[1];
 
-    return next(); // <-- Faqat keyingi qadamga o'tkaziladi, res.json yozilmaydi!
-  } catch (err) {
-    console.log("Error, verifyAuth:", err);
-    if (err instanceof Errors) {
-      return res.status(err.code).json(err); // <-- return qo'shildi
-    } else {
-      return res.status(Errors.standard.code).json(Errors.standard);
-    }
+    console.log("cookie token:", JSON.stringify(req.cookies?.["accessToken"]));
+    console.log("auth header:", JSON.stringify(req.headers.authorization));
+
+    req.member = await authService.checkAuth(token);
+
+    if (!req.member)
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.NOT_AUTHENTICATED);
+
+    next();
+  } catch (error) {
+    console.error("Error in verifyAuth:", error);
+    if (error instanceof Errors) res.status(error.code).json(error);
+    else res.status(Errors.standard.code).json(Errors.standard);
   }
 };
+
 memberController.retrieveAuth = async (
   req: ExtendedRequest,
   res: Response,
