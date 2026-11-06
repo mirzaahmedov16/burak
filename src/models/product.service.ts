@@ -81,6 +81,7 @@ class ProductService {
       throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
     }
   }
+
   public async updateChosenProduct(
     id: string,
     input: ProductUpdateInput,

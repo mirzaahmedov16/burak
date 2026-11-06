@@ -101,6 +101,7 @@ productController.createNewProduct = async (
     );
   }
 };
+
 productController.updateChosenProduct = async (
   req: AdminRequest,
   res: Response,
